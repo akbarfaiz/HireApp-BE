@@ -8,14 +8,32 @@ const selectUsers = () => {
 
 const insertUsers = data => {
     const {id,email,password,nama,phone,jabatan} = data
+    let query = ''
+    if (jabatan) {
+      query = `INSERT INTO users(id,email,password,nama,phone,jabatan) VALUES('${id}','${email}','${password}','${nama}','${phone}','${jabatan}')`
+    } else {
+      query = `INSERT INTO users(id,email,password,nama,phone) VALUES('${id}','${email}','${password}','${nama}','${phone}')`
+    }
     return new Promise((resolve,reject)=>
-    Pool.query(`INSERT INTO users(id,email,password,nama,phone,jabatan) VALUES('${id}','${email}','${password}','${nama}','${phone}','${jabatan}')`,(err,result)=>{
+    Pool.query(query,(err,result)=>{
         if(!err){
         resolve(result)
         } else {
         reject(err)
         }
     }))
+}
+
+const insertRecruiter= data => {
+  const {id,perusahaan} = data
+  return new Promise((resolve,reject)=>
+  Pool.query(`INSERT INTO detail_perusahaan(id_user,nama_perusahaan) VALUES('${id}','${perusahaan}')`,(err,result)=>{
+      if(!err){
+      resolve(result)
+      } else {
+      reject(err)
+      }
+  }))
 }
 
 const selectUsersById = (data) => {
@@ -42,4 +60,4 @@ const findUser = (email) => {
     }))
 }
 
-module.exports = {selectUsers,insertUsers,selectUsersById,findUser}
+module.exports = {selectUsers,insertUsers,insertRecruiter,selectUsersById,findUser}

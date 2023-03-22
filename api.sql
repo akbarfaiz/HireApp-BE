@@ -10,26 +10,30 @@ CREATE TABLE users(
 );
 
 --Perusahaan/Perekrut
-CREATE TABLE detailPerusahaan(
+CREATE TABLE detail_perusahaan(
     id_user VARCHAR REFERENCES users(id),
-    emailPerusahaan VARCHAR,
-    namaPerusahaan VARCHAR,
-    phonePerusahaan VARCHAR,
-    bidangPerusahaan VARCHAR,
-    infoPerusahaan VARCHAR,
-    provinsi VARCHAR,
-    provinsi_id INT,
-    kota VARCHAR,
-    kota_id INT
+    email_perusahaan VARCHAR NULL,
+    nama_perusahaan VARCHAR,
+    phone_perusahaan VARCHAR NULL,
+    bidang_perusahaan VARCHAR NULL,
+    info_perusahaan VARCHAR NULL,
+    provinsi VARCHAR NULL,
+    provinsi_id INT NULL,
+    kota VARCHAR NULL,
+    kota_id INT NULL
 );
 
+DROP TABLE detail_perusahaan;
+
 --Pekerja
-CREATE TABLE detailPekerja(
+CREATE TABLE detail_pekerja(
     id_user VARCHAR REFERENCES users(id),
     provinsi VARCHAR,
     provinsi_id INT,
     kota VARCHAR,
     kota_id INT,
-    tempatKerja VARCHAR,
+    tempat_kerja VARCHAR,
     deskripsi VARCHAR
 );
+
+DROP TABLE detail_pekerja;
