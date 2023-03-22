@@ -30,4 +30,16 @@ const selectUsersById = (data) => {
   }))
 }
 
-module.exports = {selectUsers,insertUsers,selectUsersById}
+const findUser = (email) => {
+  return new Promise((resolve,reject)=>
+    Pool.query(`SELECT * FROM users WHERE email='${email}'`,
+    (err,result)=>{
+      if(!err){
+        resolve(result)
+      } else {
+        reject(err)
+      }
+    }))
+}
+
+module.exports = {selectUsers,insertUsers,selectUsersById,findUser}
