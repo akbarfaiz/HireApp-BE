@@ -2,7 +2,7 @@ const Pool = require('../config/db')
 
 const selectPekerja = () => {
     return Pool.query(
-      `SELECT dp.id_user, us.nama, us.email, us.phone, dp.provinsi,dp.provinsi_id, dp.kota, dp.kota_id, dp.tempatkerja, dp.deskripsi 
+      `SELECT dp.id_user, us.nama, us.email, us.phone, dp.provinsi,dp.provinsi_id, dp.kota, dp.kota_id, dp.deskripsi 
       FROM detail_pekerja as dp
       join users as us on us.id = dp.id_user;`
     );
