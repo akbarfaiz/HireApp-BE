@@ -60,4 +60,18 @@ const findUser = (email) => {
     }))
 }
 
-module.exports = {selectUsers,insertUsers,insertRecruiter,selectUsersById,findUser}
+const updateNameUsers = (id, data) => {
+  const {nama} = data
+    return new Promise((resolve,reject)=>
+    Pool.query(`UPDATE users SET nama = '${nama}' WHERE id = '${id}'`,(err,result)=>{
+        if(!err){
+        resolve(result)
+        } else {
+        reject(err)
+        }
+    }))
+}
+
+
+
+module.exports = {selectUsers,insertUsers,insertRecruiter,selectUsersById,findUser, updateNameUsers}
