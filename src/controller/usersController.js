@@ -192,7 +192,7 @@ const usersController = {
     },
     resetPassword: async (req,res,next)=>{
         try {
-            if (!req.body.password || !req.body.confirm_password) {
+            if (!req.body.password || !req.body.confirm_password || !req.body.email) {
                 res.status(404).json({status:404,message:`Please fill all column`})
             } else if (req.body.password != req.body.confirm_password) {
                 res.status(404).json({status:404,message:`Your password and confirm password are different`})
