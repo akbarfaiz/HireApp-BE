@@ -2,7 +2,7 @@ const Pool = require('../config/db')
 
 const selectUsers = () => {
     return Pool.query(
-      `SELECT * FROM users`
+      `SELECT email,nama,phone,jabatan FROM users`
     );
   };
 
@@ -60,4 +60,40 @@ const findUser = (email) => {
     }))
 }
 
-module.exports = {selectUsers,insertUsers,insertRecruiter,selectUsersById,findUser}
+const insertOTP = (email,otp) => {
+  return new Promise((resolve,reject)=>
+    Pool.query(`UPDATE users SET otp = '${otp}' WHERE email = '${email}'`,
+    (err,result)=>{
+      if(!err){
+        resolve(result)
+      } else {
+        reject(err)
+      }
+    }))
+}
+
+const getOTP = (email,otp) => {
+  return new Promise((resolve,reject)=>
+    Pool.query(`SELECT * FROM users WHERE email = '${email}' AND otp = '${otp}'`,
+    (err,result)=>{
+      if(!err){
+        resolve(result)
+      } else {
+        reject(err)
+      }
+    }))
+}
+
+const changePassword = (email,password) => {
+  return new Promise((resolve,reject)=>
+    Pool.query(`UPDATE users SET password = '${password}' WHERE email = '${email}'`,
+    (err,result)=>{
+      if(!err){
+        resolve(result)
+      } else {
+        reject(err)
+      }
+    }))
+}
+
+module.exports = {selectUsers,insertUsers,insertRecruiter,selectUsersById,findUser,insertOTP,getOTP,changePassword}

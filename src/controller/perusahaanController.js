@@ -1,4 +1,4 @@
-const {insertDetailPerusahaan} = require('../models/perusahaanModel')
+const {insertDetailPerusahaan,getDetailPerusahaan} = require('../models/perusahaanModel')
 
 const perusahaanController = {
     editProfile: async (req,res,next)=>{
@@ -24,6 +24,18 @@ const perusahaanController = {
                 } else {
                     res.status(401).json({status:401,message:`Edit profile failed`})
                 }
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+    getProfile: async (req,res,next)=>{
+        try {
+            let showDetail = await getDetailPerusahaan(req.payload.id)
+            if (!showDetail.rows[0]) {
+                res.status(400).json({status:400,message:`data detail not found`})
+            } else {
+                res.status(200).json({status:200,message:`data found`,data:showDetail.rows})
             }
         } catch (error) {
             next(error)
