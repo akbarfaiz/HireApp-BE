@@ -4,11 +4,14 @@ const Users =   require('./usersRoute')
 const Perusahaan = require('./perusahaanRoute')
 const Skill = require('./skillRoute')
 const Experience = require('./experienceRoute')
+const Pekerja = require('./pekerjaRoute')
 
 router.use('/users',Users)
 router.use('/company',Perusahaan)
 router.use('/skill',Skill)
 router.use('/experience',Experience)
+router.use('/pekerja', Pekerja)
+
 router.get('/',function(req, res) {
     res.json({ message: 'Welcome to Hire App API !!!' });   
 })

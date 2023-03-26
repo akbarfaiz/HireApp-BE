@@ -8,8 +8,10 @@ const email = require("../middleware/emailOTP")
 const usersController = {
     createUsers: async (req,res,next)=>{
         try {
-            if (!req.body.email || !req.body.password || !req.body.nama || !req.body.phone) {
+            if (!req.body.email || !req.body.password || !req.body.confirm_password || !req.body.nama || !req.body.phone) {
                 res.status(404).json({status:404,message:`Please fill all data`})
+            } else if (req.body.password != req.body.confirm_password) {
+                res.status(404).json({status:404,message:`Your password and confirm password are different`})
             } else if (req.body.password.length < 6) {
                 res.status(404).json({status:404,message:`Your password must at least 6 characters`})
             } else if (req.body.password.length > 12) {
@@ -45,8 +47,10 @@ const usersController = {
     },
     createRecruiter: async (req,res,next)=>{
         try {
-            if (!req.body.email || !req.body.password || !req.body.nama || !req.body.phone || !req.body.jabatan || !req.body.perusahaan) {
+            if (!req.body.email || !req.body.password || !req.body.confirm_password || !req.body.nama || !req.body.phone || !req.body.jabatan || !req.body.perusahaan) {
                 res.status(404).json({status:404,message:`Please fill all data`})
+            } else if (req.body.password != req.body.confirm_password) {
+                res.status(404).json({status:404,message:`Your password and confirm password are different`})
             } else if (req.body.password.length < 6) {
                 res.status(404).json({status:404,message:`Your password must at least 6 characters`})
             } else if (req.body.password.length > 12) {

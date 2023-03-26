@@ -96,4 +96,26 @@ const changePassword = (email,password) => {
     }))
 }
 
-module.exports = {selectUsers,insertUsers,insertRecruiter,selectUsersById,findUser,insertOTP,getOTP,changePassword}
+const updateNameUsers = (id, data) => {
+    return new Promise((resolve,reject)=>
+    Pool.query(`UPDATE users SET nama = '${data}' WHERE id = '${id}'`,(err,result)=>{
+        if(!err){
+        resolve(result)
+        } else {
+        reject(err)
+        }
+    }))
+}
+
+const updateEmailUsers = (id, data) => {
+  return new Promise((resolve,reject)=>
+  Pool.query(`UPDATE users SET email = '${data}' WHERE id = '${id}'`,(err,result)=>{
+      if(!err){
+      resolve(result)
+      } else {
+      reject(err)
+      }
+  }))
+}
+
+module.exports = {selectUsers,insertUsers,insertRecruiter,selectUsersById,findUser,insertOTP,getOTP,changePassword, updateNameUsers, updateEmailUsers}
