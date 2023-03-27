@@ -30,8 +30,7 @@ const pekerjaController = {
         }
     },
 
-    // id_user,provinsi,provinsi_id,kota,kota_id,tempatkerja,deskripsi
-    
+   
     editProfilePekerja: async (req,res,next)=>{
         try {
             if (!req.body.nama || !req.body.provinsi|| !req.body.provinsi_id || !req.body.kota || !req.body.kota_id || !req.body.tempatkerja || !req.body.deskripsi) {
