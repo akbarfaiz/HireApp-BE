@@ -2,17 +2,17 @@ const Pool = require('../config/db')
 
 const selectUsers = () => {
     return Pool.query(
-      `SELECT email,nama,phone,jabatan FROM users`
+      `SELECT email,nama,phone,jabatan,photo FROM users`
     );
   };
 
 const insertUsers = data => {
-    const {id,email,password,nama,phone,jabatan} = data
+    const {id,email,password,nama,phone,jabatan,photo} = data
     let query = ''
     if (jabatan) {
-      query = `INSERT INTO users(id,email,password,nama,phone,jabatan) VALUES('${id}','${email}','${password}','${nama}','${phone}','${jabatan}')`
+      query = `INSERT INTO users(id,email,password,nama,phone,photo,jabatan) VALUES('${id}','${email}','${password}','${nama}','${phone}','${photo}','${jabatan}')`
     } else {
-      query = `INSERT INTO users(id,email,password,nama,phone) VALUES('${id}','${email}','${password}','${nama}','${phone}')`
+      query = `INSERT INTO users(id,email,password,nama,phone,photo) VALUES('${id}','${email}','${password}','${nama}','${phone}','${photo}')`
     }
     return new Promise((resolve,reject)=>
     Pool.query(query,(err,result)=>{

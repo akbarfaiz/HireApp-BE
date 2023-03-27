@@ -1,4 +1,4 @@
-const {selectPekerja,selectPekerjaById,insertPekerja,updateDataPekerja,deleteDataPekerja} = require('../models/pekerjaModels')
+const {selectPekerja,selectPekerjaById,selectPekerjaByName,insertPekerja,updateDataPekerja,deleteDataPekerja} = require('../models/pekerjaModels')
 const {updateNameUsers} = require('../models/usersModel')
 
 const pekerjaController = {
@@ -19,6 +19,36 @@ const pekerjaController = {
         try {
             let id = req.payload.id
             let data = await selectPekerjaById(id)
+        
+            if(data.rows[0]){
+                res.status(200).json({status:200,message:`data pekerja found`,data:data.rows})
+            } else {
+                res.status(400).json({status:400,message:`data pekerja not found`})
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    getDetailPekerjaById: async (req, res, next) => {
+        try {
+            let id = req.params.id
+            let data = await selectPekerjaById(id)
+        
+            if(data.rows[0]){
+                res.status(200).json({status:200,message:`data pekerja found`,data:data.rows})
+            } else {
+                res.status(400).json({status:400,message:`data pekerja not found`})
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    getPekerjaByName: async (req, res, next) => {
+        try {
+            let name = req.body.nama
+            let data = await selectPekerjaByName(name)
         
             if(data.rows[0]){
                 res.status(200).json({status:200,message:`data pekerja found`,data:data.rows})
