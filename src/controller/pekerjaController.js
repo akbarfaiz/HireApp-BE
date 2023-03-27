@@ -64,7 +64,7 @@ const pekerjaController = {
     
     editProfilePekerja: async (req,res,next)=>{
         try {
-            if (!req.body.nama || !req.body.provinsi|| !req.body.kota || !req.body.tempatkerja || !req.body.deskripsi) {
+            if (!req.body.nama || !req.body.provinsi|| !req.body.kota || !req.body.tempatkerja || !req.body.deskripsi || !req.body.job) {
                 res.status(404).json({status:404,message:`Please fill all data`})
             } else {
                 let id = req.payload.id
@@ -75,7 +75,8 @@ const pekerjaController = {
                     provinsi: req.body.provinsi,
                     kota: req.body.kota,
                     tempatkerja: req.body.tempatkerja,
-                    deskripsi: req.body.deskripsi
+                    deskripsi: req.body.deskripsi,
+                    job: req.body.job
                 }
                 
                 if (oldData.rows[0]) {
