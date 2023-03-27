@@ -1,4 +1,5 @@
 const {selectUsers,insertUsers,insertRecruiter,selectUsersById,findUser,insertOTP,getOTP,changePassword} = require('../models/usersModel')
+const {createPekerja} = require('../models/pekerjaModels')
 const {v4:uuidv4} = require('uuid')
 const argon2 = require('argon2');
 const generateToken = require('./../helper/generateToken');
@@ -29,12 +30,14 @@ const usersController = {
                         password: await argon2.hash(req.body.password),
                         nama: req.body.nama,
                         phone: req.body.phone,
-                        jabatan: req.body.jabatan
+                        jabatan: req.body.jabatan,
+                        photo: 'https://res.cloudinary.com/dfwx7ogug/image/upload/v1679895162/HireApp/Users/WhatsApp_Image_2023-03-27_at_12.31.39_rrka4g.jpg'
                     }
     
                     let register = await insertUsers(data)
+                    let create = await createPekerja(id)
     
-                    if (!register) {
+                    if (!register || !create) {
                         res.status(401).json({status:401,message:`Register failed`})
                     } else {
                         res.status(201).json({status:201,message:`Register success`})
