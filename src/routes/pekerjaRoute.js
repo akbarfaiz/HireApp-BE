@@ -7,7 +7,7 @@ const{editProfilePekerja} = require('../controller/pekerjaController')
 
 router.get('/',getPekerja);
 router.get('/:id',getPekerjaById);
-router.put('/', editProfilePekerja)
+router.put('/', editProfilePekerja);
 
 
 module.exports = router
