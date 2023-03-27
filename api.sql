@@ -38,8 +38,11 @@ CREATE TABLE detail_pekerja(
     kota VARCHAR,
     kota_id INT,
     tempat_kerja VARCHAR,
-    deskripsi VARCHAR
+    deskripsi VARCHAR,
+    job VARCHAR
 );
+
+ALTER TABLE detail_pekerja ADD job VARCHAR;
 
 DROP TABLE detail_pekerja;
 
@@ -68,6 +71,7 @@ ALTER TABLE experience ADD id SERIAL PRIMARY KEY;
 
 --Portofolio
 CREATE TABLE portofolio(
+    id SERIAL PRIMARY KEY,
     id_user VARCHAR REFERENCES users(id),
     link_repo VARCHAR,
     nama_perusahaan VARCHAR,
@@ -76,3 +80,4 @@ CREATE TABLE portofolio(
     created_at VARCHAR
 );
 
+ALTER TABLE portofolio ADD id SERIAL PRIMARY KEY;
