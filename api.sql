@@ -8,10 +8,11 @@ CREATE TABLE users(
     nama VARCHAR,
     phone VARCHAR,
     jabatan VARCHAR NULL,
-    otp VARCHAR NULL
+    otp VARCHAR NULL,
+    photo VARCHAR NULL
 );
 
-ALTER TABLE users ADD otp VARCHAR NULL;
+ALTER TABLE users ADD photo VARCHAR NULL;
 
 --Perusahaan/Perekrut
 CREATE TABLE detail_perusahaan(

@@ -2,7 +2,7 @@ const Pool = require('../config/db')
 
 const selectPekerja = () => {
     return Pool.query(
-      `SELECT dp.id_user, us.nama, us.email, us.phone, dp.provinsi,dp.provinsi_id, dp.kota, dp.kota_id, dp.deskripsi 
+      `SELECT dp.id_user, us.nama, us.photo, us.email, us.phone, dp.provinsi,dp.provinsi_id, dp.kota, dp.kota_id, dp.deskripsi 
       FROM detail_pekerja as dp
       join users as us on us.id = dp.id_user;`
     );
@@ -10,10 +10,25 @@ const selectPekerja = () => {
 
   const selectPekerjaById = (id) => {
     return new Promise((resolve,reject)=>
-      Pool.query(`SELECT dp.id_user, us.nama, us.email, us.phone, dp.provinsi,dp.provinsi_id, dp.kota, dp.kota_id, dp.tempat_kerja, dp.deskripsi 
+      Pool.query(`SELECT dp.id_user, us.nama, us.photo, us.email, us.phone, dp.provinsi,dp.provinsi_id, dp.kota, dp.kota_id, dp.tempat_kerja, dp.deskripsi 
       FROM detail_pekerja as dp
       join users as us on us.id = dp.id_user
       WHERE id_user = '${id}';`,
+      (err,result)=>{
+        if(!err){
+          resolve(result)
+        } else {
+          reject(err)
+        }
+    }))
+  };
+
+  const selectPekerjaByName = (name) => {
+    return new Promise((resolve,reject)=>
+      Pool.query(`SELECT dp.id_user, us.nama, us.photo, us.email, us.phone, dp.provinsi,dp.provinsi_id, dp.kota, dp.kota_id, dp.tempat_kerja, dp.deskripsi 
+      FROM detail_pekerja as dp
+      join users as us on us.id = dp.id_user
+      WHERE us.nama = '%${name}%';`,
       (err,result)=>{
         if(!err){
           resolve(result)
@@ -43,6 +58,17 @@ const insertPekerja = data => {
   }))
 };
 
+const createPekerja = id_user => {
+  return new Promise((resolve,reject)=>
+  Pool.query(`INSERT INTO detail_pekerja(id_user) VALUES('${id_user}')`,(err,result)=>{
+      if(!err){
+      resolve(result)
+      } else {
+      reject(err)
+      }
+  }))
+}
+
 const deleteDataPekerja = (id) => {
   return Pool.query(
     `DELETE FROM datailpekerja WHERE id_user = ${id}`
@@ -53,4 +79,4 @@ const deleteDataPekerja = (id) => {
 
 
 
-module.exports = {selectPekerja,selectPekerjaById,insertPekerja,updateDataPekerja,deleteDataPekerja}
+module.exports = {selectPekerja,selectPekerjaById,selectPekerjaByName,insertPekerja,createPekerja,updateDataPekerja,deleteDataPekerja}

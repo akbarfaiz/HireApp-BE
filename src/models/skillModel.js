@@ -32,6 +32,26 @@ const getSkill = () => {
     }))
 };
 
+const getSkillbyIdUser = (id) => {
+    return new Promise((resolve,reject)=>
+    Pool.query(`
+    SELECT
+        users.nama,
+        skill.nama_skill
+    FROM 
+        skill
+    JOIN
+        users ON users.id = skill.id_user
+    WHERE skill.id_user = '${id}'`,
+    (err,result)=>{
+        if(!err){
+        resolve(result)
+        } else {
+        reject(err)
+        }
+    }))
+};
+
 const getSkillbyName = (nama) => {
     return new Promise((resolve,reject)=>
     Pool.query(`
@@ -52,4 +72,17 @@ const getSkillbyName = (nama) => {
     }))
 };
 
-module.exports = {insertSkill,getSkill,getSkillbyName}
+const updateSkill = data => {
+    const {id_user,nama_skill} = data
+    return new Promise((resolve,reject)=>
+    Pool.query(`UPDATE skill SET nama_skill = '${nama_skill}' WHERE id_user = '${id_user}'`,
+    (err,result)=>{
+        if(!err){
+        resolve(result)
+        } else {
+        reject(err)
+        }
+    }))
+}
+
+module.exports = {insertSkill,getSkill,getSkillbyName,getSkillbyIdUser,updateSkill}
