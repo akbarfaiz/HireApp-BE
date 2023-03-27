@@ -8,7 +8,6 @@ const{editProfilePekerja} = require('../controller/pekerjaController')
 const {protect} = require('./../middleware/authProtect')
 
 router.get('/myProfile',protect,getPekerjaById);
-router.get('/myProfile',protect,getPekerjaById);
 router.get('/detail/:id',getDetailPekerjaById);
 router.get('/',getPekerja);
 router.put('/',protect, editProfilePekerja)

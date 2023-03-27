@@ -62,9 +62,22 @@ const skillController = {
             res.status(401).json({status:401,error:error.message})
         }
     },
-    getSkillById: async (req,res,next)=>{
+    getSkillByUserId: async (req,res,next)=>{
         try {
             let showSkill = await getSkillbyIdUser(req.payload.id)
+
+            if (showSkill.rows[0]) {
+                res.status(200).json({status:200,message:`data found`,data:showSkill.rows})
+            } else {
+                res.status(400).json({status:400,message:`data skill not found`})
+            }
+        } catch (error) {
+            res.status(401).json({status:401,error:error.message})
+        }
+    },
+    getSkillByParams: async (req,res,next)=>{
+        try {
+            let showSkill = await getSkillbyIdUser(req.params.id)
 
             if (showSkill.rows[0]) {
                 res.status(200).json({status:200,message:`data found`,data:showSkill.rows})
