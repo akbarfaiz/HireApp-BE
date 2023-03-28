@@ -1,13 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const { getPekerja, 
-        getPekerjaById
+        getPekerjaById,
+        getDetailPekerjaById,
+        editProfilePekerja
     } = require ('../controller/pekerjaController.js')
-const{editProfilePekerja} = require('../controller/pekerjaController')
+const {protect} = require('./../middleware/authProtect')
 
+router.get('/myProfile',protect,getPekerjaById);
+router.get('/myProfile',protect,getPekerjaById);
+router.get('/detail/:id',getDetailPekerjaById);
 router.get('/',getPekerja);
-router.get('/:id',getPekerjaById);
-router.put('/', editProfilePekerja);
+router.put('/',protect, editProfilePekerja);
 
 
 module.exports = router

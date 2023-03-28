@@ -1,3 +1,4 @@
+-- Active: 1679554972670@@149.129.241.190@5432@b9k2
 
 --User
 CREATE TABLE users(
@@ -6,8 +7,12 @@ CREATE TABLE users(
     password VARCHAR NOT NULL,
     nama VARCHAR,
     phone VARCHAR,
-    jabatan VARCHAR NULL
+    jabatan VARCHAR NULL,
+    otp VARCHAR NULL,
+    photo VARCHAR NULL
 );
+
+ALTER TABLE users ADD photo VARCHAR NULL;
 
 --Perusahaan/Perekrut
 CREATE TABLE detail_perusahaan(
@@ -37,3 +42,37 @@ CREATE TABLE detail_pekerja(
 );
 
 DROP TABLE detail_pekerja;
+
+
+--Skill
+CREATE TABLE skill(
+    id_user VARCHAR REFERENCES users(id),
+    nama_skill VARCHAR
+);
+
+DROP TABLE skill;
+
+--Experience
+CREATE TABLE experience(
+    id SERIAL PRIMARY KEY,
+    id_user VARCHAR REFERENCES users(id),
+    posisi VARCHAR,
+    nama_perusahaan VARCHAR,
+    start_at VARCHAR,
+    end_at VARCHAR,
+    deskripsi VARCHAR,
+    created_at VARCHAR
+);
+
+ALTER TABLE experience ADD id SERIAL PRIMARY KEY;
+
+--Portofolio
+CREATE TABLE portofolio(
+    id_user VARCHAR REFERENCES users(id),
+    link_repo VARCHAR,
+    nama_perusahaan VARCHAR,
+    tipe VARCHAR,
+    photo VARCHAR,
+    created_at VARCHAR
+);
+
