@@ -7,7 +7,11 @@ const Experience = require('./experienceRoute')
 const Pekerja = require('./pekerjaRoute')
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const Chat = require('./messagesRoute')
+=======
+const Portofolio = require('./portofolioRoute')
+>>>>>>> 5db94a36141cc9f6412aada6f32554b62eb19fda
 =======
 const Portofolio = require('./portofolioRoute')
 >>>>>>> 5db94a36141cc9f6412aada6f32554b62eb19fda
@@ -22,7 +26,11 @@ router.use('/experience',Experience)
 router.use('/pekerja', Pekerja)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 router.use('/chat', Chat)
+=======
+router.use('/portofolio', Portofolio)
+>>>>>>> 5db94a36141cc9f6412aada6f32554b62eb19fda
 =======
 router.use('/portofolio', Portofolio)
 >>>>>>> 5db94a36141cc9f6412aada6f32554b62eb19fda
