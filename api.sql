@@ -1,4 +1,3 @@
--- Active: 1679554972670@@149.129.241.190@5432@b9k2
 
 --User
 CREATE TABLE users(
@@ -7,72 +6,49 @@ CREATE TABLE users(
     password VARCHAR NOT NULL,
     nama VARCHAR,
     phone VARCHAR,
-    jabatan VARCHAR NULL,
-    otp VARCHAR NULL,
-    photo VARCHAR NULL
+    jabatan VARCHAR NULL
 );
-
-ALTER TABLE users ADD photo VARCHAR NULL;
 
 --Perusahaan/Perekrut
-CREATE TABLE detail_perusahaan(
+CREATE TABLE detailPerusahaan(
     id_user VARCHAR REFERENCES users(id),
-    email_perusahaan VARCHAR NULL,
-    nama_perusahaan VARCHAR,
-    phone_perusahaan VARCHAR NULL,
-    bidang_perusahaan VARCHAR NULL,
-    info_perusahaan VARCHAR NULL,
-    provinsi VARCHAR NULL,
-    provinsi_id INT NULL,
-    kota VARCHAR NULL,
-    kota_id INT NULL
+    emailPerusahaan VARCHAR,
+    namaPerusahaan VARCHAR,
+    phonePerusahaan VARCHAR,
+    bidangPerusahaan VARCHAR,
+    infoPerusahaan VARCHAR,
+    provinsi VARCHAR,
+    provinsi_id INT,
+    kota VARCHAR,
+    kota_id INT
 );
 
-DROP TABLE detail_perusahaan;
-
 --Pekerja
-CREATE TABLE detail_pekerja(
+CREATE TABLE detailPekerja(
     id_user VARCHAR REFERENCES users(id),
     provinsi VARCHAR,
     provinsi_id INT,
     kota VARCHAR,
     kota_id INT,
-    tempat_kerja VARCHAR,
+    tempatKerja VARCHAR,
     deskripsi VARCHAR
 );
 
-DROP TABLE detail_pekerja;
-
-
---Skill
-CREATE TABLE skill(
-    id_user VARCHAR REFERENCES users(id),
-    nama_skill VARCHAR
-);
-
-DROP TABLE skill;
-
---Experience
-CREATE TABLE experience(
+--Room CHat
+CREATE TABLE roomChat(
     id SERIAL PRIMARY KEY,
-    id_user VARCHAR REFERENCES users(id),
-    posisi VARCHAR,
-    nama_perusahaan VARCHAR,
-    start_at VARCHAR,
-    end_at VARCHAR,
-    deskripsi VARCHAR,
-    created_at VARCHAR
+    id_perusahaan VARCHAR REFERENCES users(id),
+    id_pekerja VARCHAR REFERENCES users(id),
+    position VARCHAR,
+    description TEXT,
+    created_at TIMESTAMP
 );
 
-ALTER TABLE experience ADD id SERIAL PRIMARY KEY;
-
---Portofolio
-CREATE TABLE portofolio(
-    id_user VARCHAR REFERENCES users(id),
-    link_repo VARCHAR,
-    nama_perusahaan VARCHAR,
-    tipe VARCHAR,
-    photo VARCHAR,
-    created_at VARCHAR
+--chatMessage
+CREATE TABLE chatMessage(
+    chat_id SERIAL REFERENCES roomChat(id),
+    sender VARCHAR REFERENCES users(id),
+    receiver VARCHAR REFERENCES users(id),
+    chat TEXT,
+    created_at TIMESTAMP
 );
-

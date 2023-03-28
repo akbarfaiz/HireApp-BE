@@ -27,7 +27,3 @@ INSERT INTO roomchat(id_perusahaan, id_pekerja, position, description) VALUES ('
 'd7876cd9-0cb6-4d33-a92d-a49feb2c02f4','sdaada','dasadadadaa' );
 
 INSERT INTO chatmessage VALUES('1','d7876cd9-0cb6-4d33-a92d-a49feb2c02f4','78d09fdb-bb4f-4e6c-b785-c9883617a451','iya');
-
-select dp.nama, dd.nama, cm.chat from chatmessage as cm 
-join detail_perusahaan as dp on dp.id_user = cm.sender
-JOIN detail_pekerja as dd on dd.id_user = cm.receiver

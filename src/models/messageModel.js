@@ -65,7 +65,7 @@ const Pool = require('../config/db')
             reject(err)
             }
         }))
-    };
+    };;
 
 
 

@@ -4,7 +4,11 @@ const {updateNameUsers} = require('../models/usersModel')
 const pekerjaController = {
     getPekerja: async (req,res,next)=>{
         try {
-            let showUser = await selectPekerja()
+            let data = {
+                page: req.query.page || 1,
+                limit: req.query.limit || 4
+            }
+            let showUser = await selectPekerja(data)
             if (!showUser.rows[0]) {
                 res.status(400).json({status:400,message:`data pekerja not found`})
             } else {
@@ -47,8 +51,12 @@ const pekerjaController = {
 
     getPekerjaByName: async (req, res, next) => {
         try {
-            let name = req.body.nama
-            let data = await selectPekerjaByName(name)
+            let name = req.query.nama
+            let pagination = {
+                page: req.query.page || 1,
+                limit: req.query.limit || 4
+            }
+            let data = await selectPekerjaByName(name,pagination)
         
             if(data.rows[0]){
                 res.status(200).json({status:200,message:`data pekerja found`,data:data.rows})
@@ -64,7 +72,7 @@ const pekerjaController = {
     
     editProfilePekerja: async (req,res,next)=>{
         try {
-            if (!req.body.nama || !req.body.provinsi|| !req.body.kota || !req.body.tempatkerja || !req.body.deskripsi) {
+            if (!req.body.nama || !req.body.provinsi|| !req.body.kota || !req.body.tempatkerja || !req.body.deskripsi || !req.body.job) {
                 res.status(404).json({status:404,message:`Please fill all data`})
             } else {
                 let id = req.payload.id
@@ -75,7 +83,8 @@ const pekerjaController = {
                     provinsi: req.body.provinsi,
                     kota: req.body.kota,
                     tempatkerja: req.body.tempatkerja,
-                    deskripsi: req.body.deskripsi
+                    deskripsi: req.body.deskripsi,
+                    job: req.body.job
                 }
                 
                 if (oldData.rows[0]) {

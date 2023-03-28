@@ -40,6 +40,32 @@ const messageController = {
         }
     },
 
+    createMessage: async (req,res,next)=>{
+        try {
+                
+
+            if (!req.body.id_perusahaan || !req.body.id_pekerja || !req.body.position || !req.body.description ) {
+                res.status(404).json({status:404,message:`Please fill all data`})
+            } else {
+                let data = {
+                    id_perusahaan: req.payload.id,
+                    id_pekerja: req.payload.id,
+                    position: req.body.position,
+                    description: req.body.deskription
+                }
+
+                let insert = await insertRoomChat(data)
+
+                if (!insert) {
+                    res.status(404).json({status:404,message:`Create Chat failed`})
+                } else {
+                    res.status(201).json({status:201,message:`Create Chat success`})
+                }
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
 
 }
 

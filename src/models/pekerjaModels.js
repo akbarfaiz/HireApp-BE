@@ -1,10 +1,13 @@
 const Pool = require('../config/db')
 
-const selectPekerja = () => {
+const selectPekerja = (data) => {
+    const {page,limit} = data
     return Pool.query(
       `SELECT dp.id_user, us.nama, us.photo, us.email, us.phone, dp.provinsi,dp.provinsi_id, dp.kota, dp.kota_id, dp.deskripsi 
       FROM detail_pekerja as dp
-      join users as us on us.id = dp.id_user;`
+      JOIN users as us on us.id = dp.id_user
+      JOIN skill on dp.id_user = skill.id_user
+      OFFSET ${(page-1)*limit} LIMIT ${limit};`
     );
   };
 
