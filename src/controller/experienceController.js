@@ -53,8 +53,6 @@ const experienceController = {
             next(error)
         }
     },
-<<<<<<< HEAD
-=======
     getDetailExperienceUserId: async (req,res,next)=> {
         try {
             let show = await getExperienceByUserId(req.params.id)
@@ -81,7 +79,6 @@ const experienceController = {
             next(error)
         }
     },
->>>>>>> 5db94a36141cc9f6412aada6f32554b62eb19fda
     updateExperience: async (req,res,next)=> {
         try {
             let oldData = await getExperienceById(req.params.id)

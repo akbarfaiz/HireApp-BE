@@ -51,15 +51,11 @@ const skillController = {
     },
     getSkillByname: async (req,res,next)=>{
         try {
-<<<<<<< HEAD
-            let showSkill = await getSkillbyName(req.body.nama_skill)
-=======
             let pagination = {
                 page: req.query.page || 1,
                 limit: req.query.limit || 4
             }
             let showSkill = await getSkillbyName(req.query.nama,pagination)
->>>>>>> 5db94a36141cc9f6412aada6f32554b62eb19fda
 
             if (showSkill.rows[0]) {
                 res.status(200).json({status:200,message:`data found`,data:showSkill.rows})
