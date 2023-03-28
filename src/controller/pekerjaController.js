@@ -51,7 +51,7 @@ const pekerjaController = {
 
     getPekerjaByName: async (req, res, next) => {
         try {
-            let name = req.body.nama
+            let name = req.query.nama
             let pagination = {
                 page: req.query.page || 1,
                 limit: req.query.limit || 4

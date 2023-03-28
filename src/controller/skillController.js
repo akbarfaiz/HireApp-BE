@@ -55,7 +55,7 @@ const skillController = {
                 page: req.query.page || 1,
                 limit: req.query.limit || 4
             }
-            let showSkill = await getSkillbyName(req.body.nama_skill,pagination)
+            let showSkill = await getSkillbyName(req.query.nama,pagination)
 
             if (showSkill.rows[0]) {
                 res.status(200).json({status:200,message:`data found`,data:showSkill.rows})
