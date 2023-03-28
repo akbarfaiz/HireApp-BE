@@ -53,6 +53,35 @@ const experienceController = {
             next(error)
         }
     },
+<<<<<<< HEAD
+=======
+    getDetailExperienceUserId: async (req,res,next)=> {
+        try {
+            let show = await getExperienceByUserId(req.params.id)
+
+            if (show.rows[0]) {
+                res.status(200).json({status:200,message:`data found`,data:show.rows})
+            } else {
+                res.status(400).json({status:400,message:`data not found`})
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+    getExperienceById: async (req,res,next)=> {
+        try {
+            let show = await getExperienceById(req.params.id)
+
+            if (show.rows[0]) {
+                res.status(200).json({status:200,message:`data found`,data:show.rows})
+            } else {
+                res.status(400).json({status:400,message:`data not found`})
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+>>>>>>> 5db94a36141cc9f6412aada6f32554b62eb19fda
     updateExperience: async (req,res,next)=> {
         try {
             let oldData = await getExperienceById(req.params.id)

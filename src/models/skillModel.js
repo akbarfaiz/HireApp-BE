@@ -52,17 +52,44 @@ const getSkillbyIdUser = (id) => {
     }))
 };
 
+<<<<<<< HEAD
 const getSkillbyName = (nama) => {
     return new Promise((resolve,reject)=>
     Pool.query(`
     SELECT
         users.nama,
+=======
+const getSkillbyName = (nama,pagination) => {
+    const {page,limit} = pagination
+    return new Promise((resolve,reject)=>
+    Pool.query(`
+    SELECT
+        us.nama,
+        dp.id_user, 
+        us.photo, 
+        us.email, 
+        us.phone, 
+        dp.provinsi,
+        dp.provinsi_id, 
+        dp.kota, 
+        dp.kota_id, 
+        dp.deskripsi, 
+        dp.job,
+>>>>>>> 5db94a36141cc9f6412aada6f32554b62eb19fda
         skill.nama_skill
     FROM 
         skill
     JOIN
+<<<<<<< HEAD
         users ON users.id = skill.id_user
     WHERE nama_skill LIKE '%${nama}%'`,
+=======
+        users as us ON us.id = skill.id_user
+    JOIN
+        detail_pekerja as dp ON dp.id_user = skill.id_user
+    WHERE LOWER(nama_skill) LIKE LOWER('%${nama}%')
+    OFFSET ${(page-1)*limit} LIMIT ${limit};`,
+>>>>>>> 5db94a36141cc9f6412aada6f32554b62eb19fda
     (err,result)=>{
         if(!err){
         resolve(result)
