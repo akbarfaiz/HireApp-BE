@@ -1,6 +1,3 @@
--- Active: 1679554972670@@149.129.241.190@5432@b9k2
--- Active: 1679554972670@@149.129.241.190@5432@b9k2
--- Active: 1679554972670@@149.129.241.190@5432@b9k2
 
 --User
 CREATE TABLE users(
@@ -42,3 +39,94 @@ CREATE TABLE detailPekerja(
 );
 
 DROP TABLE detail_pekerja;
+
+
+--Skill
+CREATE TABLE skill(
+    id_user VARCHAR REFERENCES users(id),
+    nama_skill VARCHAR
+);
+
+DROP TABLE skill;
+
+--Experience
+CREATE TABLE experience(
+    id SERIAL PRIMARY KEY,
+    id_user VARCHAR REFERENCES users(id),
+    posisi VARCHAR,
+    nama_perusahaan VARCHAR,
+    start_at VARCHAR,
+    end_at VARCHAR,
+    deskripsi VARCHAR,
+    created_at VARCHAR
+);
+
+ALTER TABLE experience ADD id SERIAL PRIMARY KEY;
+
+--Portofolio
+CREATE TABLE portofolio(
+    id SERIAL PRIMARY KEY,
+    id_user VARCHAR REFERENCES users(id),
+    link_repo VARCHAR,
+    nama_perusahaan VARCHAR,
+    tipe VARCHAR,
+    photo VARCHAR,
+    created_at VARCHAR
+);
+
+ALTER TABLE portofolio ADD id SERIAL PRIMARY KEY;
+
+
+--Skill
+CREATE TABLE skill(
+    id_user VARCHAR REFERENCES users(id),
+    nama_skill VARCHAR
+);
+
+DROP TABLE skill;
+
+--Experience
+CREATE TABLE experience(
+    id SERIAL PRIMARY KEY,
+    id_user VARCHAR REFERENCES users(id),
+    posisi VARCHAR,
+    nama_perusahaan VARCHAR,
+    start_at VARCHAR,
+    end_at VARCHAR,
+    deskripsi VARCHAR,
+    created_at VARCHAR
+);
+
+ALTER TABLE experience ADD id SERIAL PRIMARY KEY;
+
+--Portofolio
+CREATE TABLE portofolio(
+    id SERIAL PRIMARY KEY,
+    id_user VARCHAR REFERENCES users(id),
+    link_repo VARCHAR,
+    nama_perusahaan VARCHAR,
+    tipe VARCHAR,
+    photo VARCHAR,
+    created_at VARCHAR
+);
+
+ALTER TABLE portofolio ADD id SERIAL PRIMARY KEY;
+
+--Room CHat
+CREATE TABLE roomChat(
+    id SERIAL PRIMARY KEY,
+    id_perusahaan VARCHAR REFERENCES users(id),
+    id_pekerja VARCHAR REFERENCES users(id),
+    position VARCHAR,
+    description TEXT,
+    created_at TIMESTAMP
+);
+
+--chatMessage
+CREATE TABLE chatMessage(
+    chat_id SERIAL REFERENCES roomChat(id),
+    sender VARCHAR REFERENCES users(id),
+    receiver VARCHAR REFERENCES users(id),
+    chat TEXT,
+    created_at TIMESTAMP
+);
