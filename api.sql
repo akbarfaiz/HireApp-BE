@@ -1,4 +1,5 @@
 -- Active: 1679554972670@@149.129.241.190@5432@b9k2
+-- Active: 1679554972670@@149.129.241.190@5432@b9k2
 
 --User
 CREATE TABLE users(
@@ -35,7 +36,6 @@ CREATE TABLE detailPekerja(
     provinsi_id INT,
     kota VARCHAR,
     kota_id INT,
-<<<<<<< HEAD
     tempatKerja VARCHAR,
     deskripsi VARCHAR
 );
@@ -58,7 +58,6 @@ CREATE TABLE chatMessage(
     chat TEXT,
     created_at TIMESTAMP
 );
-=======
     tempat_kerja VARCHAR,
     deskripsi VARCHAR,
     job VARCHAR
@@ -103,4 +102,3 @@ CREATE TABLE portofolio(
 );
 
 ALTER TABLE portofolio ADD id SERIAL PRIMARY KEY;
->>>>>>> 5db94a36141cc9f6412aada6f32554b62eb19fda
