@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const {createExperience,getExperience,getExperienceByUserId,getExperienceById,updateExperience,deleteExperience} = require('../controller/experienceController')
+const {createExperience,getExperience,getExperienceByUserId,getExperienceById,getDetailExperienceUserId,updateExperience,deleteExperience} = require('../controller/experienceController')
 const {protect} = require('./../middleware/authProtect')
 
 router.get('/myExperience',protect,getExperienceByUserId)
 router.get('/detail/:id',getExperienceById)
+router.get('/show/:id',getDetailExperienceUserId)
 router.get('/',getExperience)
 router.post('/',protect,createExperience)
 router.put('/update/:id',protect,updateExperience)
