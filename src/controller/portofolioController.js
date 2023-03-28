@@ -15,6 +15,19 @@ const portofolioController = {
             next(error)
         }
     },
+    getDetailPortofolioUser: async (req,res,next)=>{
+        try {
+            let id = req.params.id
+            let data = await selectPortofolioByUserId(id)
+             if (data.rows[0]) {
+                res.status(200).json({status:200,message:`data portofolio found`,data:data.rows})
+             } else {
+                res.status(400).json({status:400,message:`data portofolio not found`})
+             }
+        } catch (error) {
+            next(error)
+        }
+    },
     getPortofolioById: async (req,res,next)=>{
         try {
             let id = req.params.id
