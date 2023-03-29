@@ -32,7 +32,8 @@ const Pool = require('../config/db')
         Pool.query(`SELECT r.id,cm.sender, cm.receiver ,r.id_pekerja , r.id_perusahaan, cm.chat, cm.created_at
         FROM chatmessage as cm 
         JOIN roomchat as r on r.id = cm.chat_id
-        WHERE r.id = '${id}';`,
+        WHERE r.id = '${id}'
+        ORDER BY cm.created_at ASC;`,
         (err,result)=>{
             if(!err){
             resolve(result)
@@ -44,8 +45,10 @@ const Pool = require('../config/db')
 
     const selectChatByUserId = (id) => {
         return new Promise((resolve,reject)=>
-        Pool.query(`SELECT id,id_pekerja , id_perusahaan, position, description
-        FROM roomchat
+        Pool.query(`SELECT rc.id,rc.id_pekerja, us.nama, rc.id_perusahaan, dp.nama_perusahaan, rc.position, rc.description
+        FROM roomchat as rc
+        JOIN users as us ON us.id = rc.id_pekerja
+        JOIN detail_perusahaan as dp ON dp.id_user = rc.id_perusahaan
         WHERE id_pekerja = '${id}' OR id_perusahaan = '${id}';`,
         (err,result)=>{
             if(!err){
