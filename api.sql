@@ -1,4 +1,5 @@
--- Active: 1679554972670@@149.129.241.190@5432@b9k2
+-- Active: 1679404576489@@149.129.241.190@5432@b9k2
+
 
 --User
 CREATE TABLE users(
@@ -15,23 +16,21 @@ CREATE TABLE users(
 ALTER TABLE users ADD photo VARCHAR NULL;
 
 --Perusahaan/Perekrut
-CREATE TABLE detail_perusahaan(
+CREATE TABLE detailPerusahaan(
     id_user VARCHAR REFERENCES users(id),
-    email_perusahaan VARCHAR NULL,
-    nama_perusahaan VARCHAR,
-    phone_perusahaan VARCHAR NULL,
-    bidang_perusahaan VARCHAR NULL,
-    info_perusahaan VARCHAR NULL,
-    provinsi VARCHAR NULL,
-    provinsi_id INT NULL,
-    kota VARCHAR NULL,
-    kota_id INT NULL
+    emailPerusahaan VARCHAR,
+    namaPerusahaan VARCHAR,
+    phonePerusahaan VARCHAR,
+    bidangPerusahaan VARCHAR,
+    infoPerusahaan VARCHAR,
+    provinsi VARCHAR,
+    provinsi_id INT,
+    kota VARCHAR,
+    kota_id INT
 );
 
-DROP TABLE detail_perusahaan;
-
 --Pekerja
-CREATE TABLE detail_pekerja(
+CREATE TABLE detailPekerja(
     id_user VARCHAR REFERENCES users(id),
     provinsi VARCHAR,
     provinsi_id INT,
@@ -81,3 +80,21 @@ CREATE TABLE portofolio(
 );
 
 ALTER TABLE portofolio ADD id SERIAL PRIMARY KEY;
+
+CREATE TABLE roomChat(
+    id VARCHAR PRIMARY KEY,
+    id_perusahaan VARCHAR REFERENCES users(id),
+    id_pekerja VARCHAR REFERENCES users(id),
+    position VARCHAR,
+    description TEXT,
+    created_at TIMESTAMP
+);
+
+--chatMessage
+CREATE TABLE chatMessage(
+    chat_id VARCHAR REFERENCES roomChat(id),
+    sender VARCHAR REFERENCES users(id),
+    receiver VARCHAR REFERENCES users(id),
+    chat TEXT,
+    created_at TIMESTAMP
+);

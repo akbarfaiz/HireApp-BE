@@ -7,6 +7,7 @@ const selectPekerja = (data) => {
       FROM detail_pekerja as dp
       JOIN users as us on us.id = dp.id_user
       JOIN skill on dp.id_user = skill.id_user
+      ORDER BY us.nama ASC
       OFFSET ${(page-1)*limit} LIMIT ${limit};`
     );
   };
@@ -35,6 +36,7 @@ const selectPekerja = (data) => {
       JOIN users as us on us.id = dp.id_user
       JOIN skill on dp.id_user = skill.id_user
       WHERE LOWER(us.nama) LIKE LOWER('%${name}%')
+      ORDER BY us.nama ASC
       OFFSET ${(page-1)*limit} LIMIT ${limit};`,
       (err,result)=>{
         if(!err){

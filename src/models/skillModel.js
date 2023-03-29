@@ -76,6 +76,7 @@ const getSkillbyName = (nama,pagination) => {
     JOIN
         detail_pekerja as dp ON dp.id_user = skill.id_user
     WHERE LOWER(nama_skill) LIKE LOWER('%${nama}%')
+    ORDER BY skill.nama_skill ASC
     OFFSET ${(page-1)*limit} LIMIT ${limit};`,
     (err,result)=>{
         if(!err){
