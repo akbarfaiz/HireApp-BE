@@ -72,6 +72,7 @@ const usersController = {
                         nama: req.body.nama,
                         phone: req.body.phone,
                         jabatan: req.body.jabatan,
+                        photo: 'https://res.cloudinary.com/dfwx7ogug/image/upload/v1679895162/HireApp/Users/WhatsApp_Image_2023-03-27_at_12.31.39_rrka4g.jpg'
                     }
 
                     let dataPlus = {

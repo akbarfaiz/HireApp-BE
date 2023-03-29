@@ -118,4 +118,15 @@ const updateEmailUsers = (id, data) => {
   }))
 }
 
-module.exports = {selectUsers,insertUsers,insertRecruiter,selectUsersById,findUser,insertOTP,getOTP,changePassword, updateNameUsers, updateEmailUsers}
+const updatePhotoUsers = (id,data) => {
+  return new Promise((resolve,reject)=>
+  Pool.query(`UPDATE users SET photo = '${data}' WHERE id = '${id}'`,(err,result)=>{
+      if(!err){
+      resolve(result)
+      } else {
+      reject(err)
+      }
+  }))
+}
+
+module.exports = {selectUsers,insertUsers,insertRecruiter,selectUsersById,findUser,insertOTP,getOTP,changePassword,updatePhotoUsers, updateNameUsers, updateEmailUsers}
