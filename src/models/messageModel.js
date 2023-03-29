@@ -28,11 +28,11 @@ const Pool = require('../config/db')
     };
 
     const insertRoomChat = data => {
-        let {perusahaan, pekerja, position,description} = data
-        let created_at, updated_at = new date (now);
+        let {id, perusahaan, pekerja, position,description} = data
+        let created_at = new date (now);
         return new Promise((resolve,reject)=>
-        Pool.query(`INSERT INTO roomchat(id_perusahaan, id_pekerja, position, description, created_at, updated_at)
-        VALUES (${perusahaan}','${pekerja}','${position}','${description}','${created_at}','${updated_at}')`,(err,result)=>{
+        Pool.query(`INSERT INTO roomchat(id_perusahaan, id_pekerja, position, description, created_at)
+        VALUES ('${id}',${perusahaan}','${pekerja}','${position}','${description}','${created_at}')`,(err,result)=>{
             if(!err){
             resolve(result)
             } else {

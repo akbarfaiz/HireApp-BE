@@ -27,3 +27,22 @@ INSERT INTO roomchat(id_perusahaan, id_pekerja, position, description) VALUES ('
 'd7876cd9-0cb6-4d33-a92d-a49feb2c02f4','sdaada','dasadadadaa' );
 
 INSERT INTO chatmessage VALUES('1','d7876cd9-0cb6-4d33-a92d-a49feb2c02f4','78d09fdb-bb4f-4e6c-b785-c9883617a451','iya');
+
+
+CREATE TABLE roomChat(
+    id SERIAL PRIMARY KEY,
+    id_perusahaan VARCHAR REFERENCES users(id),
+    id_pekerja VARCHAR REFERENCES users(id),
+    position VARCHAR,
+    description TEXT,
+    created_at TIMESTAMP
+);
+
+--chatMessage
+CREATE TABLE chatMessage(
+    chat_id SERIAL REFERENCES roomChat(id),
+    sender VARCHAR REFERENCES users(id),
+    receiver VARCHAR REFERENCES users(id),
+    chat TEXT,
+    created_at TIMESTAMP
+);
