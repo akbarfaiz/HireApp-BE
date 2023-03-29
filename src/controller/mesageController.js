@@ -1,4 +1,5 @@
-const {selectAllChat, insertRoomChat, insertChatMessage} = require ('../models/messageModel');
+const {selectAllChat, selectChatById,selectChatByUserId, insertRoomChat, insertChatMessage} = require ('../models/messageModel');
+const { v4: uuidv4 } = require("uuid");
 
 const messageController = {
 
@@ -6,7 +7,33 @@ const messageController = {
         try {
             let showUser = await selectAllChat()
             if (!showUser.rows[0]) {
-                res.status(400).json({status:400,message:`data pekerja not found`})
+                res.status(400).json({status:400,message:`data chat not found`})
+            } else {
+                res.status(200).json({status:200,message:`data found`,data:showUser.rows})
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    getChatById: async (req,res,next)=>{
+        try {
+            let showUser = await selectChatById(req.params.id)
+            if (!showUser.rows[0]) {
+                res.status(400).json({status:400,message:`data chat not found`})
+            } else {
+                res.status(200).json({status:200,message:`data found`,data:showUser.rows})
+            }
+        } catch (error) {
+            next(error)
+        }
+    },
+
+    getChatByUserId: async (req,res,next)=>{
+        try {
+            let showUser = await selectChatByUserId(req.payload.id)
+            if (!showUser.rows[0]) {
+                res.status(400).json({status:400,message:`data chat not found`})
             } else {
                 res.status(200).json({status:200,message:`data found`,data:showUser.rows})
             }
@@ -17,56 +44,60 @@ const messageController = {
 
     createRoomChat: async (req,res,next)=>{
         try {
-            if (!req.body.id_perusahaan || !req.body.id_pekerja || !req.body.position || !req.body.description ) {
-                res.status(404).json({status:404,message:`Please fill all data`})
+            let id_perusahaan = req.payload.id
+            let id_pekerja = req.params.id
+            let position = req.body.position
+            let description = req.body.description
+            let chat = req.body.chat
+            let id = uuidv4()
+
+            let data_c = {id_perusahaan, id_pekerja, position, description, id}
+            console.log(data_c)
+            let data_m = {
+                chat_id : id,
+                sender : id_perusahaan,
+                receiver : id_pekerja,
+                chat : chat
+            }
+            console.log(data_m)
+
+            let insertRoom = await insertRoomChat(data_c)
+            let insertMessage = await insertChatMessage(data_m)
+
+            if (!insertRoom || !insertMessage) {
+                res.status(404).json({status:404,message:`Create Chat failed`})
             } else {
-                let data = {
-                    id_perusahaan: req.payload.id,
-                    id_pekerja: req.payload.id,
-                    position: req.body.position,
-                    description: req.body.deskription
-                }
-
-                let insert = await insertRoomChat(data)
-
-                if (!insert) {
-                    res.status(404).json({status:404,message:`Create Chat failed`})
-                } else {
-                    res.status(201).json({status:201,message:`Create Chat success`})
-                }
+                res.status(201).json({status:201,message:`Create Chat success`})
             }
         } catch (error) {
             next(error)
-        }
+        }   
     },
 
     createMessage: async (req,res,next)=>{
-        try {
-                
+            try {   
 
-            if (!req.body.id_perusahaan || !req.body.id_pekerja || !req.body.position || !req.body.description ) {
-                res.status(404).json({status:404,message:`Please fill all data`})
-            } else {
-                let data = {
-                    id_perusahaan: req.payload.id,
-                    id_pekerja: req.payload.id,
-                    position: req.body.position,
-                    description: req.body.deskription
-                }
-
-                let insert = await insertRoomChat(data)
-
-                if (!insert) {
-                    res.status(404).json({status:404,message:`Create Chat failed`})
-                } else {
-                    res.status(201).json({status:201,message:`Create Chat success`})
-                }
+              let sender = req.payload.id
+              let receiver = req.body.receiver_id
+              let chat_id = req.params.chat_id
+              let chat = req.body.chat
+              console.log("sender_id = " , sender)
+              const data_message = {
+                chat_id,
+                sender,
+                receiver,
+                chat
+              }
+              let response_message = await insertChatMessage(data_message)
+              if (!response_message) {
+                  return res.status(400).json({msg: "Failed sending message"});
+              }
+              return res.status(200).json({msg: "Success sending message", data: chat});
+            } catch (error) {
+              return next(res.status(404).json({msg: error.message, data: error}));
             }
-        } catch (error) {
-            next(error)
-        }
-    },
+    }
 
 }
 
-module.exports = messageController;
+module.exports = messageController

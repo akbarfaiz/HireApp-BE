@@ -27,12 +27,41 @@ const Pool = require('../config/db')
         }))
     };
 
-    const insertRoomChat = data => {
-        let {perusahaan, pekerja, position,description} = data
-        let created_at, updated_at = new date (now);
+    const selectChatById = (id) => {
         return new Promise((resolve,reject)=>
-        Pool.query(`INSERT INTO roomchat(id_perusahaan, id_pekerja, position, description, created_at, updated_at)
-        VALUES (${perusahaan}','${pekerja}','${position}','${description}','${created_at}','${updated_at}')`,(err,result)=>{
+        Pool.query(`SELECT r.id,cm.sender, cm.receiver ,r.id_pekerja , r.id_perusahaan, cm.chat, cm.created_at
+        FROM chatmessage as cm 
+        JOIN roomchat as r on r.id = cm.chat_id
+        WHERE r.id = '${id}';`,
+        (err,result)=>{
+            if(!err){
+            resolve(result)
+            } else {
+            reject(err)
+            }
+        }))
+    }
+
+    const selectChatByUserId = (id) => {
+        return new Promise((resolve,reject)=>
+        Pool.query(`SELECT id,id_pekerja , id_perusahaan, position, description
+        FROM roomchat
+        WHERE id_pekerja = '${id}' OR id_perusahaan = '${id}';`,
+        (err,result)=>{
+            if(!err){
+            resolve(result)
+            } else {
+            reject(err)
+            }
+        }))
+    }
+
+    const insertRoomChat = data => {
+        let {id, id_perusahaan, id_pekerja, position,description} = data
+        let created_at = new Date();
+        return new Promise((resolve,reject)=>
+        Pool.query(`INSERT INTO roomchat(id, id_perusahaan, id_pekerja, position, description, created_at)
+        VALUES ('${id}','${id_perusahaan}','${id_pekerja}','${position}','${description}','${created_at}')`,(err,result)=>{
             if(!err){
             resolve(result)
             } else {
@@ -43,10 +72,10 @@ const Pool = require('../config/db')
     
     const insertChatMessage = data => {
         let {chat_id, sender, receiver, chat} = data
-        let created_at = new date (now);
+        let created_at = new Date();
         return new Promise((resolve,reject)=>
         Pool.query(`INSERT INTO chatmessage(chat_id, sender, receiver, chat,created_at)
-        VALUES ('${chat_id}',${sender}','${receiver}','${chat}''${created_at})`,(err,result)=>{
+        VALUES ('${chat_id}','${sender}','${receiver}','${chat}','${created_at}')`,(err,result)=>{
             if(!err){
             resolve(result)
             } else {
@@ -69,4 +98,4 @@ const Pool = require('../config/db')
 
 
 
-  module.exports = {selectAllChat,insertRoomChat,insertChatMessage, selectChat, deleteRoomChat}
+  module.exports = {selectAllChat,selectChatById,selectChatByUserId,insertRoomChat,insertChatMessage, selectChat, deleteRoomChat}

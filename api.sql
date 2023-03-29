@@ -1,4 +1,5 @@
--- Active: 1679554972670@@149.129.241.190@5432@b9k2
+-- Active: 1679404576489@@149.129.241.190@5432@b9k2
+
 
 --User
 CREATE TABLE users(
@@ -79,3 +80,21 @@ CREATE TABLE portofolio(
 );
 
 ALTER TABLE portofolio ADD id SERIAL PRIMARY KEY;
+
+CREATE TABLE roomChat(
+    id VARCHAR PRIMARY KEY,
+    id_perusahaan VARCHAR REFERENCES users(id),
+    id_pekerja VARCHAR REFERENCES users(id),
+    position VARCHAR,
+    description TEXT,
+    created_at TIMESTAMP
+);
+
+--chatMessage
+CREATE TABLE chatMessage(
+    chat_id VARCHAR REFERENCES roomChat(id),
+    sender VARCHAR REFERENCES users(id),
+    receiver VARCHAR REFERENCES users(id),
+    chat TEXT,
+    created_at TIMESTAMP
+);

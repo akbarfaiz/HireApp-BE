@@ -1,5 +1,6 @@
 const {selectPekerja,selectPekerjaById,selectPekerjaByName,insertPekerja,updateDataPekerja,deleteDataPekerja} = require('../models/pekerjaModels')
-const {updateNameUsers} = require('../models/usersModel')
+const {updateNameUsers,selectUsersById,updatePhotoUsers} = require('../models/usersModel')
+const cloudinary = require("../config/cloudinary")
 
 const pekerjaController = {
     getPekerja: async (req,res,next)=>{
@@ -75,35 +76,77 @@ const pekerjaController = {
             if (!req.body.nama || !req.body.provinsi|| !req.body.kota || !req.body.tempatkerja || !req.body.deskripsi || !req.body.job) {
                 res.status(404).json({status:404,message:`Please fill all data`})
             } else {
-                let id = req.payload.id
-                let oldData = await selectPekerjaById(id)
-                let nama = req.body.nama;
-                let data = {
-                    id_user: req.payload.id,
-                    provinsi: req.body.provinsi,
-                    kota: req.body.kota,
-                    tempatkerja: req.body.tempatkerja,
-                    deskripsi: req.body.deskripsi,
-                    job: req.body.job
-                }
-                
-                if (oldData.rows[0]) {
-                    let insert = await updateDataPekerja(data)
-                    let insName = await updateNameUsers(data.id_user,nama)
+                if (req.file) {
+                    const imageUrl = await cloudinary.uploader.upload(req.file.path,{folder:'HireApp/Users'})
 
-                    if (insert && insName) {
-                        res.status(201).json({status:201,message:`Edit profile success`})
+                    if (!imageUrl) {
+                        res.status(404).json({status:404,message:`input data failed, failed to upload photo`})
                     } else {
-                        res.status(401).json({status:401,message:`Edit profile failed`})
+                        let id = req.payload.id
+                        let oldData = await selectPekerjaById(id)
+                        let nama = req.body.nama;
+                        let data = {
+                            id_user: req.payload.id,
+                            provinsi: req.body.provinsi,
+                            kota: req.body.kota,
+                            tempatkerja: req.body.tempatkerja,
+                            deskripsi: req.body.deskripsi,
+                            job: req.body.job
+                        }
+                        
+                        if (oldData.rows[0]) {
+                            let inPhoto = await updatePhotoUsers(data.id_user,imageUrl.secure_url)
+                            let insert = await updateDataPekerja(data)
+                            let insName = await updateNameUsers(data.id_user,nama)
+        
+                            if (insert && insName && inPhoto) {
+                                res.status(201).json({status:201,message:`Edit profile success`})
+                            } else {
+                                res.status(401).json({status:401,message:`Edit profile failed`})
+                            }
+                        } else {
+                            let inPhoto = await updatePhotoUsers(data.id_user,imageUrl.secure_url)
+                            let insert = await insertPekerja(data)
+                            let insName = await updateNameUsers(data.id_user,nama)
+        
+                            if (insert && insName && inPhoto) {
+                                res.status(201).json({status:201,message:`Create profile success`})
+                            } else {
+                                res.status(401).json({status:401,message:`Create profile failed`})
+                            }
+                        }
                     }
                 } else {
-                    let insert = await insertPekerja(data)
-                    let insName = await updateNameUsers(data.id_user,nama)
-
-                    if (insert && insName) {
-                        res.status(201).json({status:201,message:`Create profile success`})
+                    let id = req.payload.id
+                    let oldData = await selectPekerjaById(id)
+                    let nama = req.body.nama;
+                    let data = {
+                        id_user: req.payload.id,
+                        provinsi: req.body.provinsi,
+                        kota: req.body.kota,
+                        tempatkerja: req.body.tempatkerja,
+                        deskripsi: req.body.deskripsi,
+                        job: req.body.job
+                    }
+                    
+                    if (oldData.rows[0]) {
+                        let insert = await updateDataPekerja(data)
+                        let insName = await updateNameUsers(data.id_user,nama)
+    
+                        if (insert && insName) {
+                            res.status(201).json({status:201,message:`Edit profile success`})
+                        } else {
+                            res.status(401).json({status:401,message:`Edit profile failed`})
+                        }
                     } else {
-                        res.status(401).json({status:401,message:`Create profile failed`})
+                        let insert = await insertPekerja(data)
+                        let insName = await updateNameUsers(data.id_user,nama)
+    
+                        if (insert && insName) {
+                            res.status(201).json({status:201,message:`Create profile success`})
+                        } else {
+                            res.status(401).json({status:401,message:`Create profile failed`})
+                        }
                     }
                 }
             }
