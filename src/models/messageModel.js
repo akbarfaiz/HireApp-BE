@@ -17,7 +17,7 @@ const Pool = require('../config/db')
         Pool.query(`SELECT r.id ,r.id_pekerja as sender, r.id_perusahaan as receiver, cm.chat, cm.created_at FROM chatmessage as cm 
         JOIN roomchat as r on r.id = cm.chat_id
         WHERE (sender = '${id1}' AND receiver ='${id2}') or (sender ='${id2}' AND receiver = '${id1}')
-        ORDER BY cm.created_at;;`,
+        ORDER BY cm.created_at;`,
         (err,result)=>{
             if(!err){
             resolve(result)
