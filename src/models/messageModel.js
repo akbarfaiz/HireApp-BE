@@ -45,7 +45,7 @@ const Pool = require('../config/db')
 
     const selectChatByUserId = (id) => {
         return new Promise((resolve,reject)=>
-        Pool.query(`SELECT rc.id,rc.id_pekerja, us.nama, rc.id_perusahaan, dp.nama_perusahaan, rc.position, rc.description
+        Pool.query(`SELECT rc.id,rc.id_pekerja, us.nama, us.photo, rc.id_perusahaan, dp.nama_perusahaan, rc.position, rc.description
         FROM roomchat as rc
         JOIN users as us ON us.id = rc.id_pekerja
         JOIN detail_perusahaan as dp ON dp.id_user = rc.id_perusahaan
