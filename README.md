@@ -1,18 +1,49 @@
 
-# Hire App API
+<h1 align="center">Hire App API</h1>
+<p align="center">
+  <img width="250" src="https://github.com/yosuanovry/HireApp-FE/blob/dev/src/Assets/LandingPage/hireapp_logo.png"  />
+</p>
 
+## Table of Contents
+
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#route">Route</a></li>
+    <li><a href="#related-project">Related Project</a></li>
+    <li><a href="#our-team">Our Team</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
+
+## About The Project
 The Hire app API is an API that functions as a backend consisting of data users who have 2 roles, namely Workers (Pekerja) and Companies (Perusahaan). Each role has its own detailed profile. Users also have experience, skill, and portfolio data. This API also supports chat functions between companies and workers where companies creating chat rooms. This API is built with <a href="https://expressjs.com">ExpressJs</a> which is a simple and flexible web application framework that uses <a href="https://nodejs.org/en/about/">NodeJs<a/>.
 
 ![DB Diagram](https://user-images.githubusercontent.com/87055460/229475516-3b5260fd-25f7-4cb4-8b09-2f2ad05b95a2.png)
 
+### Built With
+
+This app was built with some technologies below:
+
+- [Node.js](https://nodejs.org/en/)
+- [Express.js](https://expressjs.com/)
+- [JSON Web Tokens](https://jwt.io/)
+- [PostgreSQL](https://www.postgresql.org/)
 
 ## Requirements
-
-    1. Node Js
-    2. Postman
-    3. Database (PostgreSQL or PhpMyAdmin)
-    4. Server (Localhost or Online Server)
-    5. Cloudinary
+1. <a href="https://nodejs.org/en/">Node Js</a>
+2. <a href="https://www.postman.com/downloads/">Postman</a>
+3. Database (<a href="https://www.postgresql.org/download/">PostgreSQL</a>)
+4. Server (Localhost or Online Server)
+5. <a href="https://cloudinary.com">Cloudinary</a>
 
 
 ## Installation
@@ -47,7 +78,12 @@ The Hire app API is an API that functions as a backend consisting of data users 
   PHOTO_KEY= //Your Cloudinary API Key
   PHOTO_SECRET= //Your Cloudinary API Secret
 ```
-8. Open <a href='https://www.postman.com'>Postman</a>, choose HTTP request method and request URL like localhost:8080/
+8. Run your project with command below
+```bash
+  nodemon //To Start Development
+```
+9. Open Postman, choose HTTP request method and  request URL like localhost:4000/
+    
 ## Route
 
 * **Users**
@@ -158,6 +194,49 @@ The Hire app API is an API that functions as a backend consisting of data users 
     * **POST /chat/messages/:id** → insert message with params id room chat (Need Bearer Token) 
         
         ```Body{receiver_id,chat}```
-## Demo
 
-https://odd-lime-dibbler-ring.cyclic.app/
+# Related Project
+:rocket: [API](https://odd-lime-dibbler-ring.cyclic.app/)<br>
+:rocket: [HireApp Website](https://github.com/yosuanovry/HireApp-FE)<br>
+
+## Our Team
+
+<center>
+  <table>
+    <tr>
+      <th>Frontend Lead</th>
+      <th>Frontend</th>
+      <th>Backend Lead</th>
+      <th>Backend</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/yosuanovry">
+          <img width="150" style="background-size: contain;" src="https://avatars.githubusercontent.com/u/123917032?v=4" alt="Yosua Novry Susilo"><br/>
+          <b>Yosua Novry Susilo</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/revofarissaifuddin">
+          <img width="150" src="https://avatars.githubusercontent.com/u/47625301?v=4" alt="Revo Faris Saifuddin"><br/>
+          <b>Revo Faris Saifuddin</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/akbarfaiz">
+          <img width="150" src="https://avatars.githubusercontent.com/u/87055460?v=4" alt="Akbar Faiz"><br/>
+          <b>Akbar Faiz</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/fauzanilmi220">
+          <img width="150" src="https://avatars.githubusercontent.com/u/126861853?v=4" alt="Fauzan Ilmi"><br/>
+          <b>Fauzan Ilmi</b>
+        </a>
+      </td>
+    </tr>
+  </table>
+</center>
+
+## License
+Distributed under the [MIT](/LICENSE) License.
